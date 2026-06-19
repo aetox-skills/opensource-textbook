@@ -1,349 +1,298 @@
 ---
-name: doc-standard
+name: opensource-textbook
 description: >
-  ใช้เมื่อเขียนหรืออัปเดตเอกสารทางเทคนิคภาษาไทย — ALL tasks เกี่ยวกับการเขียนเอกสาร
-  Open Source ใน Obsidian vault, การสร้างบทเรียนสถาปัตยกรรม, หรือเอกสารระดับตำราเรียน
-  อ้างอิงจาก BookMind technical_guide.md และ senior-architect-agent discipline
+  ใช้เมื่อให้ AI อ่าน วิเคราะห์ และแปลง Open Source repository
+  เป็นเอกสารเชิงตำราเรียนภาษาไทย โดยต้องตรวจสอบ repo จริง
+  แยกข้อเท็จจริงจากการอนุมาน อธิบายสถาปัตยกรรมจาก codebase
+  และจัดลำดับเนื้อหาให้ผู้อ่านเรียนรู้จากพื้นฐานไปสู่การลงมือทำ
 ---
 
-# 📖 Doc-Standard — มาตรฐานเอกสารทางเทคนิค
+# 📖 OpenSource Textbook — จาก Repo สู่ตำราเรียน
 
-> ไม่ใช่แม่แบบฟอร์แมต แต่เป็น **ชั้นวินัย** สำหรับงานเขียนเอกสาร —
-> แยกข้อเท็จจริงจากการอนุมาน, รู้ว่าอะไรยังไม่ยืนยัน, และหยุดเมื่อพอดี
+> สกิลนี้ไม่ใช่แค่แม่แบบเอกสาร แต่เป็น **ชั้นวินัย** สำหรับแปลง Open Source
+> ให้เป็นหลักสูตรที่สอนคน — จากไม่รู้ → เข้าใจ → วิเคราะห์ได้ → ลงมือทำได้
 
-อ้างอิงจาก: `BookMind/docs/technical_guide.md` + `senior-architect-agent`
+อ้างอิงจาก: `BookMind/docs/technical_guide.md` + `senior-architect-agent` + ฟีดแบ็คจากอาจารย์
 
 ---
 
-## Operating Rules (กฎ 10 ข้อ — ห้ามละเมิด)
+## Operating Rules (กฎ 12 ข้อ — ห้ามละเมิด)
 
-1. **ห้ามเขียนก่อนตรวจสอบ** — ต้อง `webfetch` repo, README, AGENTS.md ก่อนเขียน
-2. **ห้ามอ้าง stars/milestones โดยไม่ยืนยัน** — ใช้ตัวเลขจริงจาก GitHub
-3. **ห้ามเดาโดยไม่ทำเครื่องหมาย** — ทุกข้อความที่อนุมานต้องกำกับ `[อนุมาน]`
-4. **แยกข้อเท็จจริง 4 ระดับ** — Direct, Inferred, Assumed, Unverified (ดู Section Evidence)
-5. **ถามก่อนสรุป** — ถ้าขาดข้อมูลสำคัญ ให้ถามผู้ใช้หรือทำเครื่องหมาย `[ยังไม่ยืนยัน]`
+1. **ห้ามเขียนก่อนตรวจสอบ** — ต้อง `webfetch` repo, README, AGENTS.md, package files ก่อนเขียน
+2. **ห้ามอ้าง stars/milestones โดยไม่ยืนยัน** — ใช้ตัวเลขจริงจาก GitHub เท่านั้น
+3. **ห้ามเดาโดยไม่ทำเครื่องหมาย** — ทุกข้อความที่อนุมานต้องกำกับ `[→]`
+4. **แยกข้อเท็จจริง 4 ระดับ** — `[✓]` Direct, `[→]` Inferred, `[?]` Assumed, `[!]` Unverified
+5. **ถามก่อนสรุป** — ถ้าขาดข้อมูลสำคัญ ให้ถามผู้ใช้หรือเขียน `[!] ยังไม่ยืนยัน`
 6. **ใช้ภาษาไทย** — ยกเว้นชื่อโปรเจค, framework, URL, code
-7. **มี "ทำไม" ทุกครั้ง** — อธิบายเหตุผลการออกแบบ ไม่ใช่แค่ "อะไร"
-8. **Diagram โยงถึงแหล่ง** — ทุก diagram component ต้องอ้างอิงไฟล์หรือ docs ได้
-9. **หยุดเมื่อพอดี** — ไม่ใช่ทุกโปรเจคต้องเขียน 15 sections (ดู Pass Levels)
-10. **ห้ามสร้างเอกสารตกแต่ง** — ทุก section ต้องมีประโยชน์ ไม่งั้นตัดทิ้ง
+7. **สอน อย่าบอก** — ทุกบทต้องสอนให้คนเข้าใจและทำตามได้, ไม่ใช่แค่ throw ข้อมูล
+8. **จัดลำดับสมองคนอ่าน** — จากง่ายไปยาก, จากภาพรวมไปรายละเอียด, จากแนวคิดไป implementation
+9. **Diagram โยงถึง source** — ทุก component ต้องอ้างอิงไฟล์หรือ docs ได้
+10. **ห้ามเขียน architecture chapter จาก README อย่างเดียว** — ต้องผ่าน Code Reading Pipeline ทั้ง 7 ขั้น
+11. **หยุดเมื่อพอดี** — ไม่ใช่ทุกโปรเจคต้องตำรา 15 sections (ดู Pass Levels)
+12. **ห้ามสร้างเอกสารตกแต่ง** — ทุก section ต้องมีประโยชน์ต่อการเรียนรู้
 
 ---
 
-## Pass Levels (ระดับความลึกของเอกสาร)
+## Learning Path Rules (4 ข้อ — ตำราทุกบทต้องตอบ)
 
-เลือกก่อนเริ่มเขียน:
+ก่อนเขียนแต่ละบท ให้ตอบ 4 คำถามนี้:
 
-### 🔍 Quick Note (1-3 sections)
-ใช้เมื่อ: โปรเจคเล็ก, low-risk, หรือสำรวจเบื้องต้น
-- 1. ภาพรวม (2-3 ย่อหน้า)
-- 2. สถาปัตยกรรม (1 diagram หลัก)
-- 3. สิ่งที่ได้เรียนรู้ (ตารางสรุป)
-
-### 📄 Standard Chapter (5-8 sections)
-ใช้เมื่อ: โปรเจคขนาดกลาง, ต้องการมือส่งต่อให้ AI อ่านได้
-- 1. ภาพรวม
-- 2. สถาปัตยกรรม
-- 3. โครงสร้างไฟล์
-- 4. แนวคิดหลัก
-- 5. Data Flow
-- 6. Design Patterns
-- 7. สรุป
-- 8. คำถามท้ายบท
-
-### 📘 Full Textbook (10-15 sections)
-ใช้เมื่อ: โปรเจคใหญ่, ซับซ้อน, หรือเป็น foundation ของ ecosystem
-- ทุก sections ใน Standard +
-- 7. Code Walkthrough (วิเคราะห์โค้ดทีละส่วน)
-- 8. การเปรียบเทียบ (เทียบกับโปรเจคใกล้เคียง)
-- 9. Deep Dive (1-3 หัวข้อ)
-- 10. Benchmark/สถิติ
-- 11. สรุป
-- 12. คำถามท้ายบท
-
-**Pass Promotion Gate:**
-- ต้องมี trigger ชัดเจน (เช่น "ผู้ใช้ขอ Full", "พบ 3+ modules ที่เกี่ยวเนื่องกัน")
-- ต้องอ้างอิง evidence หรือคำขอผู้ใช้
-- ต้องระบุ risk ถ้าอยู่ใน pass ที่ต่ำกว่า
+| # | คำถาม | ตัวอย่าง |
+|---|-------|---------|
+| 1 | **ผู้เรียนต้องรู้อะไรมาก่อน?** | "ต้องรู้ Python เบื้องต้น, HTTP, JSON" |
+| 2 | **บทนี้สอนแนวคิดอะไร?** | "สอนว่า Session Management ทำงานอย่างไรใน SQLite" |
+| 3 | **หลังอ่านจบ ผู้เรียนควรทำอะไรได้?** | "ออกแบบ session manager ของตัวเองได้" |
+| 4 | **ถ้าจะลงมือทดลอง ต้องเริ่มจากไฟล์ไหน?** | "`packages/core/src/session/index.ts` → `createSession()`" |
 
 ---
 
-## Evidence Strength (ระดับความน่าเชื่อถือของข้อมูล)
+## Chapter Types (6 แบบ)
 
-ทุกข้อความสำคัญต้องกำกับ:
+เลือกประเภทบทให้เหมาะกับเนื้อหา:
 
-| ระดับ | เครื่องหมาย | ความหมาย | ตัวอย่าง |
-|-------|-----------|---------|---------|
-| **Direct** | `[✓]` | ยืนยันจาก repo, README, docs โดยตรง | `[✓] stars: 176k (จาก GitHub)` |
-| **Inferred** | `[→]` | อนุมานจากหลักฐาน แต่ยังไม่ยืนยันตรงๆ | `[→] น่าจะใช้ SQLite เพราะเห็น drizzle ใน package.json` |
-| **Assumed** | `[?]` | ตั้งสมมติฐานเพื่อให้เขียนต่อได้ | `[?] สมมติว่า session timeout = 30 นาที` |
-| **Unverified** | `[!]` | ยังไม่มีหลักฐาน — ต้องกลับมายืนยัน | `[!] ยังไม่ได้อ่านไฟล์ permission.ts` |
+### 🧠 Concept Chapter
+สอนแนวคิดหลัก เช่น plugin system, auth flow, scheduler
 
-ใช้ `ตรวจสอบก่อน: ใช่` สำหรับข้อความที่สำคัญมากและควรให้มนุษย์หรือ AI ในอนาคตตรวจสอบซ้ำ
+```
+ประกอบด้วย:
+1. เป้าหมายบทเรียน
+2. แนวคิดคืออะไร — อธิบายด้วยภาษาง่าย
+3. ทำไมต้องใช้แนวคิดนี้ — ปัญหาที่มันแก้
+4. แนวคิดนี้ทำงานอย่างไร — diagram + flow
+5. มีใช้ที่ไหนใน repo — ชี้ไฟล์จริง
+6. ข้อดี/ข้อเสียของแนวคิดนี้
+7. จุดที่มือใหม่มักเข้าใจผิด
+8. คำถามชวนคิด
+```
+
+### 🏗️ Architecture Chapter
+สอนภาพรวมระบบและการแยก component
+
+```
+ประกอบด้วย:
+1. เป้าหมายบทเรียน
+2. ภาพรวมระบบ — diagram ใหญ่
+3. แต่ละ component ทำอะไร — ทีละตัว
+4. Component คุยกันอย่างไร — data flow
+5. ทำไมถึงออกแบบแบบนี้ — tradeoffs
+6. ไฟล์สำคัญของแต่ละ component
+7. ถ้าจะเปลี่ยน architecture ต้องแก้ตรงไหน
+8. คำถามชวนคิด
+```
+
+### 🔬 Code Reading Chapter
+พาผู้อ่านเดินอ่านไฟล์จริงทีละส่วน
+
+```
+ประกอบด้วย:
+1. เป้าหมายบทเรียน — "เรากำลังจะอ่านไฟล์ X เพื่อเข้าใจ Y"
+2. ภาพรวมของไฟล์ — มันอยู่ในระบบตรงไหน
+3. เดินอ่านทีละฟังก์ชัน/class — อธิบายบรรทัดต่อบรรทัด
+4. จุดที่ซับซ้อน — อธิบายเพิ่ม
+5. สรุปสิ่งที่เรียนรู้จากไฟล์นี้
+6. แบบฝึกหัด — "ลองแก้ฟังก์ชัน X ให้ทำ Y แทน"
+```
+
+### 🔨 Implementation Chapter
+พาผู้อ่านสร้าง mini version จากแนวคิดของ repo
+
+```
+ประกอบด้วย:
+1. เป้าหมาย — "เราจะสร้าง X แบบง่าย"
+2. แนวคิดจาก repo ตัวจริง — อธิบาย core idea
+3. Implementation แบบ mini — code พร้อมอธิบาย
+4. ต่างจากของจริงตรงไหน — อะไรที่ตัดออก, ทำไม
+5. วิธีรัน/ทดสอบ
+6. แบบฝึกหัด — "เพิ่ม feature Y เข้าไป"
+```
+
+### ⚖️ Comparison Chapter
+เทียบ design choice กับทางเลือกอื่น
+
+```
+ประกอบด้วย:
+1. เป้าหมาย — "เราจะเทียบ X กับ Y"
+2. เกณฑ์การเปรียบเทียบ — อะไรคือปัจจัยสำคัญ
+3. ตารางเปรียบเทียบ
+4. วิเคราะห์ — แต่ละตัวเหมาะกับอะไร
+5. ทำไม repo นี้เลือกแบบนี้
+6. คำถามชวนคิด — "ถ้าเปลี่ยนเป็น Y จะเกิดอะไรขึ้น?"
+```
+
+### ❓ Exercise Chapter
+ทดสอบความเข้าใจท้ายบท
+
+```
+ประกอบด้วย:
+1. สรุปแนวคิดสำคัญของบทก่อนหน้า
+2. แบบฝึกหัด 3-5 ข้อ
+   - ข้อ 1: ทบทวนความเข้าใจ
+   - ข้อ 2: วิเคราะห์
+   - ข้อ 3: ลงมือทำ
+3. เฉลย (แยก section)
+4. สิ่งที่ควรอ่านต่อ
+```
 
 ---
 
-## Checkpoint Gates (ด่านตรวจ)
+## Code Reading Pipeline (7 ขั้น — ห้ามข้าม)
 
-ผ่านทุกด่านก่อนส่งงาน:
+ก่อนเขียนบทเรียนจาก repo **ต้องอ่านตามลำดับนี้เท่านั้น**:
+
+```
+1. README.md          → เข้าใจเป้าหมายโปรเจกต์
+         │
+2. package/config      → เข้าใจ stack, dependencies, build system
+         │
+3. entrypoint          → เข้าใจจุดเริ่มระบบ, main/cli/server
+         │
+4. core modules        → เข้าใจแกนหลัก — ฟังก์ชัน/class หลัก
+         │
+5. adapters/integrations → เข้าใจการเชื่อมต่อภายนอก — API, DB, MCP
+         │
+6. tests/examples      → เข้าใจ intended usage — วิธีที่ควรใช้
+         │
+7. docs/issues/releases → เข้าใจบริบท, ข้อจำกัด, history
+```
+
+### Pipeline Rules
+
+- **ห้ามข้ามขั้น** — ต้องอ่านครบก่อนเริ่มเขียน architecture chapter
+- **ห้ามเขียน architecture chapter จาก README อย่างเดียว** — README คือขั้นที่ 1 จาก 7
+- ทุกขั้นต้องบันทึกสิ่งที่พบ: `[✓]` เห็นจากไฟล์, `[→]` อนุมาน, `[!]` ยังไม่ได้อ่าน
+- ถ้าขั้นไหนอ่านไม่ถึง (เช่น tests/ ไม่มี) → ทำเครื่องหมาย `[!] ไม่พบ tests`
+
+---
+
+## Teaching Output Format (9 ส่วน)
+
+ทุกบทต้องมี 9 ส่วนนี้ — **นี่คือหัวใจของตำราเรียน**:
+
+| # | ส่วน | คำอธิบาย |
+|---|------|---------|
+| 1 | **เป้าหมายบทเรียน** | ผู้เรียนจะได้อะไรหลังจากอ่านบทนี้ |
+| 2 | **ภาพรวมแนวคิด** | สิ่งที่บทนี้จะสอน — 3-5 บรรทัด |
+| 3 | **ทำไมโปรเจกต์นี้ออกแบบแบบนี้** | Design rationale — tradeoffs, constraints |
+| 4 | **ไฟล์จริงที่เกี่ยวข้อง** | รายการไฟล์ + แต่ละไฟล์ทำอะไร |
+| 5 | **อธิบาย flow จากบนลงล่าง** | Step-by-step walkthrough |
+| 6 | **จุดที่มือใหม่มักเข้าใจผิด** | Common pitfalls + วิธีหลีกเลี่ยง |
+| 7 | **แบบฝึกหัดท้ายบท** | 3-5 ข้อ — ทบทวน, วิเคราะห์, ลงมือทำ |
+| 8 | **คำถามชวนคิด** | เปิดให้คิดต่อ — "ถ้าเปลี่ยน X จะเกิดอะไร?" |
+| 9 | **สิ่งที่ควรอ่านต่อ** | บทต่อไป, docs เพิ่มเติม, paper |
+
+---
+
+## Pass Levels
+
+### 🔍 Quick Note (สำหรับสำรวจ)
+- 1-2 sections, compact
+- ใช้เมื่อ: repo เล็ก, low-risk, preview
+- ไม่ต้องครบ 9 ส่วน
+
+### 📄 Standard Lesson (สำหรับสอน)
+- 5-8 sections, 9 ส่วนครบ
+- ใช้เมื่อ: concept เดียว, module เดียว
+- มีแบบฝึกหัด
+
+### 📘 Full Textbook Chapter (สำหรับหลักสูตร)
+- 10-15 sections, 9 ส่วนครบ + Deep Dive + Comparison
+- ใช้เมื่อ: repo ใหญ่, foundation concept, หลาย module
+- มี Exercise Chapter แยก
+
+---
+
+## Evidence Strength
+
+| ระดับ | เครื่องหมาย | ใช้เมื่อ |
+|-------|-----------|---------|
+| **Direct** | `[✓]` | ยืนยันจาก repo, README, docs โดยตรง |
+| **Inferred** | `[→]` | อนุมานจากหลักฐาน ยังไม่ยืนยันตรงๆ |
+| **Assumed** | `[?]` | ตั้งสมมติฐานเพื่อให้เขียนต่อ |
+| **Unverified** | `[!]` | ยังไม่มีหลักฐาน — ต้องกลับมาดู |
+
+---
+
+## Checkpoint Gates
 
 ### Gate 1: Intake
-- [ ] เลือก Pass Level แล้ว (Quick / Standard / Full)
-- [ ] รู้ scope (กี่ sections, ใช้เวลาเท่าไหร่)
-- [ ] รู้ว่าไฟล์ output อยู่ที่ไหน
-- [ ] หรือ Early Exit: `ไม่จำเป็นต้องเขียนเอกสารเพิ่ม — <เหตุผล>`
+- [ ] เลือก Chapter Type แล้ว
+- [ ] เลือก Pass Level แล้ว
+- [ ] ตอบ Learning Path 4 ข้อแล้ว
+- [ ] หรือ Early Exit: `ไม่ต้องสอน — แค่ compact note`
 
-### Gate 2: Inspection
-- [ ] ดึงข้อมูลจาก repo แล้ว (webfetch GitHub README, AGENTS.md, docs)
-- [ ] มี stars, language, license จริง
-- [ ] บันทึกข้อจำกัดการตรวจสอบ (เช่น "ยังไม่ได้อ่าน subdirectory X")
+### Gate 2: Inspection — Code Reading Pipeline
+- [ ] README.md อ่านแล้ว `[✓]`
+- [ ] package/config อ่านแล้ว `[✓]`
+- [ ] entrypoint อ่านแล้ว `[✓]`
+- [ ] core modules อ่านแล้ว `[✓]`
+- [ ] adapters อ่านแล้ว `[✓]`
+- [ ] tests/examples ดูแล้ว `[✓]` หรือ `[!] ไม่พบ`
+- [ ] docs/issues ดูแล้ว `[✓]` หรือ `[!]`
 
 ### Gate 3: Classification
-- [ ] แยกหมวดหมู่ของระบบแล้ว (frontend, backend, database, AI, external, infra)
-- [ ] ระบุหมวดที่ยังไม่เห็น (`ไม่พบ`)
+- [ ] Chapter Type ตรงกับเนื้อหา
+- [ ] ระบุหมวดหมู่ของระบบแล้ว
 
 ### Gate 4: Question
-- [ ] ระบุสิ่งที่ยังไม่รู้และสำคัญต่อ architecture
-- [ ] หรือเขียนว่า `ไม่มีคำถามที่ส่งผลต่อ architecture`
+- [ ] ระบุสิ่งที่ยังไม่รู้และสำคัญ
+- [ ] หรือ `ไม่มีคำถามที่ส่งผล`
 
 ### Gate 5: Mapping
 - [ ] Diagram เชื่อมโยงกับ evidence ได้
-- [ ] Components ที่ไม่แน่ใจถูกกำกับ `[→]` `[?]` `[!]`
+- [ ] ทุก component มี `[✓]` `[→]` `[?]` `[!]`
 
-### Gate 6: Validation (ตอบ 3 คำถาม)
-1. **Claim Traceability:** ทุกข้อความสำคัญมีแหล่งอ้างอิงไหม? ถ้าไม่มี → `[!]` หรือตัดทิ้ง
-2. **Scope Alignment:** ขอบเขตสุดท้ายตรงกับที่ intake ไว้ไหม? ถ้าขยาย → ระบุสาเหตุ
-3. **Handoff Readiness:** มี Unknowns และ Safe Next Actions ไหม? ถ้าไม่มี → เขียนว่า `ไม่มี`
-
----
-
-## โครงสร้างเอกสาร (Structure)
-
-### 1. ส่วนหัว (Header) — ทุกบท
-
-```markdown
----
-tags:
-  - opensource
-  - หมวด
-project: ชื่อโปรเจค
-lang: ภาษา
-stars: จำนวนดาว (ยืนยันแล้ว [✓])
-status: กำลังศึกษา / pending
-created: วันที่
-updated: วันที่
-repo: https://github.com/...
-docs: https://...
----
-
-# 📘 เอกสารอธิบายระบบ <ชื่อโปรเจค>
-# <ชื่อโปรเจค> — Technical Documentation (v1.0)
-
-> คำคม/สรุปหนึ่งบรรทัด — จับใจความสำคัญ
-```
-
-### 2. สารบัญ — ทุกบท
-
-```markdown
-## สารบัญ
-
-1. [ภาพรวม](#1-ภาพรวมระบบ)
-2. [สถาปัตยกรรม](#2-สถาปัตยกรรม)
-3. ...
-N. [คำถามท้ายบท](#n-คำถามท้ายบท)
-```
-
-### 3. Section Format
-
-```markdown
-## 1. ชื่อหัวข้อ — คำอธิบายสั้น
-
-### 1.1 หัวข้อย่อย
-
-เนื้อหา...
-
-**ไฟล์ที่เกี่ยวข้อง:** `path/to/file` → function/class
-**ค่าตั้ง:** `config.file` → `KEY = value`
-```
+### Gate 6: Validation
+1. Claim Traceability — ทุกข้อความมีแหล่งอ้างอิง?
+2. Scope Alignment — ตรงกับ intake?
+3. Handoff Readiness — มี unknowns + next actions?
 
 ---
 
-## รูปแบบการเขียน (Styling)
-
-### Emoji นำหน้า Section
-
-| หัวข้อ | Emoji | ใช้เมื่อ |
-|--------|-------|---------|
-| ภาพรวม / บทนำ | 📘 | ทุกบท |
-| สถาปัตยกรรม | 🏗️ | section สถาปัตยกรรม |
-| แนวคิดหลัก | 🧠 | core concepts |
-| Data Flow | 🔄 | กระแสข้อมูล |
-| เปรียบเทียบ | ⚖️ | comparison tables |
-| Deep Dive | 🎓 | concept ลึก |
-| Code Walkthrough | 🔬 | วิเคราะห์โค้ด |
-| Benchmark | ⚡ | performance, timing |
-| สรุป | 📌 | summary |
-| คำถามท้ายบท | ❓ | review questions |
-| ข้อควรระวัง | ⚠️ | warnings, anti-patterns |
-| New Feature | 🆕 | ฟีเจอร์ใหม่ในเวอร์ชั่นล่าสุด |
-| Tuning | 💡 | tips การปรับแต่ง |
-
-### Architecture Diagram
-
-```
-┌──────────────────────────────────────────────┐
-│              Component Name                    │
-├──────────────────────────────────────────────┤
-│  Sub-component                   [✓] จากไฟล์  │
-│  ├── Feature A                   [→] อนุมาน  │
-│  ├── Feature B                   [?] สมมติ   │
-│  └── Feature C                   [!] ไม่ยืนยัน│
-└──────────────────────────────────────────────┘
-```
-
-### Data Flow (Vertical)
-
-```
-Input
-    │
-    ▼  Step 1 — คำอธิบาย ⏱️ ~5ms
-    │
-    ▼  Step 2 — คำอธิบาย ⏱️ ~100ms
-    │
-Output
-```
-
-### ตาราง
-
-```markdown
-| ปัจจัย | ตัวเลือก A | ตัวเลือก B |
-|--------|-----------|------------|
-| **เกณฑ์ 1** | ✅ ดีมาก | ❌ อ่อน |
-| **เกณฑ์ 2** | 2.2 GB | 0.3 GB |
-```
-
-- หัวตาราง `---` (ไม่ใช่ `===`)
-- จัดชิดซ้าย
-- ทำตัวหนา column แรก
-
-### Deep Dive (🎓)
-
-```markdown
-> 🎓 **Deep Dive: ชื่อหัวข้อ**
-> คำอธิบายเชิงลึก — เข้าใจ concept นี้แล้วจะเข้าใจทั้งระบบ
-```
-
-หรือ:
-
-```markdown
-### 🎓 Deep Dive: ชื่อหัวข้อ
-
-เนื้อหา...
-```
-
-### File Reference
-
-```markdown
-**ไฟล์ที่เกี่ยวข้อง:** `package/module/file.ts` → `ClassName.method()`
-**ค่าตั้ง:** `config.ts` → `KEY = value`
-```
-
-### Code Blocks
-
-````markdown
-```ภาษา
-# คำอธิบายภาษาไทย
-code here
-```
-````
-
-- บอกภาษาทุกครั้ง
-- คอมเมนต์เป็นภาษาไทย (ยกเว้นโค้ดจริงจาก repo)
-
----
-
-## Anti-Patterns (สิ่งที่ไม่ควรทำ)
+## Anti-Patterns
 
 | ❌ อย่าทำ | ✅ ควรทำ |
 |-----------|---------|
-| เขียน 15 sections ทุกโปรเจค | เลือก Pass Level ที่เหมาะสม |
-| ใช้ stars เก่า | ดึง stars ปัจจุบันจาก GitHub |
-| เดาสถาปัตยกรรมโดยไม่อ่านโค้ด | WebFetch repo ก่อนเขียน |
-| Diagram สวยแต่โยงไม่ได้ | ทุก component มี `[✓]` `[→]` `[?]` `[!]` |
-| ใช้ `การทำงานของระบบคือ...` หลายครั้ง | สั้น ตรงประเด็น |
-| เขียนทับไฟล์โดยไม่อ่านก่อน | อ่านไฟล์เก่า → คงของดี → เพิ่มของใหม่ |
-| ไม่มีคำถามท้ายบท | มี 3-5 ข้อเสมอ |
-| ภาษาอังกฤษปนโดยไม่จำเป็น | ไทยให้มากที่สุด |
-| อธิบายแค่ "อะไร" ไม่มี "ทำไม" | มีเหตุผลการออกแบบทุกครั้ง |
+| เขียน architecture chapter จาก README อย่างเดียว | ผ่าน Code Reading Pipeline 7 ขั้น |
+| ไม่มีหัวข้อ "จุดที่มือใหม่มักเข้าใจผิด" | มีทุกบท |
+| ไม่มีแบบฝึกหัด | มี 3-5 ข้อทุกบท |
+| Throw ข้อมูลโดยไม่จัดลำดับ | Learning Path → Concept → Architecture → Practice |
+| ภาษาอังกฤษปนไทยโดยไม่จำเป็น | ไทยให้มากที่สุด |
+| ใช้ stars เก่า | `[✓]` stars จริงจาก GitHub |
+| เดาสถาปัตยกรรม | `[→]` อนุมาน หรือ `[!]` ยังไม่ยืนยัน |
+| Architecture chapter ทุกโปรเจค | เลือก Chapter Type ให้เหมาะ |
 
 ---
 
 ## Checklist ก่อนส่งงาน
 
 ```
-Checkpoint Gates:
-□ Gate 1: Intake — Pass Level, scope, output path
-□ Gate 2: Inspection — repo info, stars, limitations
-□ Gate 3: Classification — system areas, missing areas
-□ Gate 4: Question — unknowns listed or "None identified"
-□ Gate 5: Mapping — diagrams traceable to evidence
-□ Gate 6: Validation — 3 questions answered
-
-Style Check:
+□ ทุกบทตอบ Learning Path 4 ข้อ
+□ ผ่าน Code Reading Pipeline 7 ขั้น
+□ มี 9 ส่วน Teaching Format ครบ (สำหรับ Standard+)
+□ เลือก Chapter Type ถูกต้อง
+□ Evidence Strength กำกับทุกข้อความสำคัญ
+□ Architecture diagram โยงถึงไฟล์ได้
+□ มี "จุดที่มือใหม่มักเข้าใจผิด"
+□ มีแบบฝึกหัด 3-5 ข้อ
 □ ภาษาไทยทั้งหมด (ยกเว้นชื่อ, code, URL)
-□ Emoji นำหน้าทุก section
-□ Architecture diagram มีอยู่
-□ ตารางใช้สำหรับเปรียบเทียบ
-□ Code blocks มีระบุภาษา
-□ Deep Dive สำหรับ concept สำคัญ
-□ File/Config references ท้าย section
-□ "ทำไม" อธิบายเหตุผล
-
-Content Check:
-□ Stars/language/license เป็นปัจจุบัน [✓]
-□ [→] [✓] [?] [!] ถูกใช้ถูกต้อง
-□ Diagram ดึงมาจาก repo structure จริง
-□ คำถามท้ายบท 3-5 ข้อ
-□ Unknowns เขียนไว้ชัดเจน
+□ [✓] stars/language จริงจาก GitHub
 ```
 
 ---
 
-## Templates (Quick Reference)
+## Templates
 
-### Quick Note Template
-```markdown
-# 📘 Quick: <ชื่อโปรเจค>
-> หนึ่งบรรทัด
+เลือก template จาก `templates/` ตาม Chapter Type:
 
-## 1. ภาพรวม
-...
+- `templates/concept-chapter.md`
+- `templates/architecture-chapter.md`
+- `templates/code-reading-chapter.md`
+- `templates/implementation-chapter.md`
+- `templates/comparison-chapter.md`
+- `templates/exercise-chapter.md`
 
-## 2. สถาปัตยกรรม
-```
-diagram
-```
+## Checklists
 
-## 3. สิ่งที่ได้เรียนรู้
-| สิ่งที่เรียน | รายละเอียด |
-|-------------|-----------|
-| ... | ... |
-```
-
-### Standard Chapter Template
-```markdown
-# 📘 <ชื่อโปรเจค> — Technical Docs
-> หนึ่งบรรทัด
-
-## สารบัญ
-...
-
-## 1. ภาพรวมระบบ
-## 2. สถาปัตยกรรม
-## 3. โครงสร้างไฟล์
-## 4. แนวคิดหลัก
-## 5. Data Flow
-## 6. Design Patterns
-## 7. สรุป
-## 8. คำถามท้ายบท
-```
+- `checklists/repo-inspection.md` — 7 ขั้น Code Reading Pipeline
+- `checklists/evidence-check.md` — Evidence Strength audit
+- `checklists/textbook-quality.md` — 9 ส่วน Teaching Format
