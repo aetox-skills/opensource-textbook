@@ -1,83 +1,340 @@
-# Repo-to-Textbook Skill
+---
+name: opensource-textbook
+description: >
+  ใช้เมื่อให้ AI อ่าน วิเคราะห์ และแปลง Open Source repository
+  เป็นเอกสารเชิงตำราเรียนภาษาไทย โดยต้องตรวจสอบ repo จริง
+  แยกข้อเท็จจริงจากการอนุมาน อธิบายสถาปัตยกรรมจาก codebase
+  และจัดลำดับเนื้อหาให้ผู้อ่านเรียนรู้จากพื้นฐานไปสู่การลงมือทำ
+---
 
-> สกิลสำหรับแปลง Open Source repository → ตำราเรียนภาษาไทย
+# Repo-to-Textbook Skill (v4)
 
-## ใช้ทำอะไร
+> "อย่าให้ AI เขียนตำราจากความทรงจำ
+> ให้มันเขียนจากหลักฐาน แล้วแปลงหลักฐานเป็นบทเรียน"
 
-ให้ AI (OpenCode, Claude Code, Codex) อ่าน Open Source repository แล้วเขียนเป็นบทเรียนภาษาไทย — จากไม่รู้ → เข้าใจ → วิเคราะห์ได้ → ลงมือทำได้
+---
 
-## เหมาะกับใคร
+## Operating Rules (กฎ 13 ข้อ)
 
-- คนที่อยากเรียนสถาปัตยกรรมจาก Open Source จริง
-- คนที่อยากให้ AI สอนแทนการสรุปเฉยๆ
-- นักพัฒนาไทยที่อยากอ่านตำราภาษาไทย
+1. **ห้ามเขียนก่อนตรวจสอบ** — ต้องผ่าน Code Reading Pipeline 7 ขั้นก่อนเขียน
+2. **ห้ามอ้าง stars โดยไม่ยืนยัน** — ใช้ตัวเลขจริงจาก GitHub `[✓]`
+3. **ห้ามเดาโดยไม่ทำเครื่องหมาย** — `[→]` Inferred, `[?]` Assumed, `[!]` Unverified
+4. **แยกข้อเท็จจริง 4 ระดับ** — Direct, Inferred, Assumed, Unverified
+5. **ถามก่อนสรุป** — ขาดข้อมูลสำคัญ → ถามผู้ใช้หรือเขียน `[!]`
+6. **ใช้ภาษาไทย** — ยกเว้นชื่อโปรเจค, framework, URL, code
+7. **สอน อย่าบอก** — ทุกบทต้องสอนให้คนเข้าใจและทำตามได้
+8. **แปลง repo structure → learning structure** — คนเรียนไม่ได้คิดตามโครง repo
+9. **Diagram โยงถึง source** — ทุก component ต้องอ้างอิงไฟล์หรือ docs ได้
+10. **ห้ามเขียน Architecture Chapter จาก README อย่างเดียว** — 7 ขั้น pipeline
+11. **หยุดเมื่อพอดี** — ไม่ใช่ทุกโปรเจคต้องตำรา (ดู Pass Levels)
+12. **ตรวจตัวเองก่อนส่ง** — คะแนน < 85 → revise (ดู Evaluation Rubric)
+13. **ห้ามสร้างเอกสารตกแต่ง** — ทุก output ต้องมีประโยชน์ต่อการเรียนรู้
 
-## วิธีการติดตั้ง
+---
 
-```bash
-# ใน OpenCode — เปิด project → พิมพ์
-/skills add aetox-skills/opensource-textbook
-```
+## 1. Book-Level Planning (ต้องทำก่อนเริ่มเขียนบท)
 
-หรือเพิ่มใน `opencode.json`:
-
-```json
-{
-  "skills": {
-    "urls": ["https://github.com/aetox-skills/opensource-textbook"]
-  }
-}
-```
-
-## ตัวอย่างการใช้งาน
-
-```
-# ตัวอย่าง prompt
-ใช้ opensource-textbook skill
-ทำบทเรียนจาก https://github.com/anomalyco/opencode
-เป็น Architecture Chapter ภาษาไทย
-```
-
-## ตัวอย่าง Output
+ก่อนเขียนบทแรกของโปรเจคใดๆ ต้องสร้างไฟล์ `book-plan.md`:
 
 ```
-📘 เอกสารอธิบายระบบ OpenCode — Technical Documentation
-├── 1. ภาพรวมระบบ
-├── 2. สถาปัตยกรรม 3 ชั้น (diagram)
-├── 3. โครงสร้าง Monorepo (22 packages)
-├── 4. Dual-Agent Architecture
-├── 5. Session Management
-├── 6. Provider Abstraction Layer
-├── ...
-└── 15. คำถามท้ายบท
+book-plan.md
+├── target_reader         # Reader Persona (ดู §6)
+├── prerequisite_map      # ต้องรู้อะไรก่อนอ่านเล่มนี้
+├── chapter_order         # ลำดับบท — เรียงตาม learning structure
+├── concept_dependency    # §3 — อะไรต้องรู้ก่อนอะไร
+├── repeated_terms        # คำศัพท์ที่ปรากฏซ้ำ → glossary candidates
+├── glossary_candidates   # §4 — คำที่จะอธิบายใน glossary
+├── project_walkthrough   # §2.3 — เส้นทางพาผู้เรียนลงมือทำ
+├── final_learning_outcome # หลังอ่านจบทั้งเล่ม ทำอะไรได้
+└── output_files          # files ที่จะสร้าง (บท, glossary, patterns, cheatsheet)
 ```
 
-## ความสามารถหลัก
+### Book-Level Planning Rules
+- **ต้องทำก่อนเขียนบทแรก** — ไม่ใช่เขียนเสร็จแล้วค่อยมาวางแผน
+- **chapter_order ≠ repo structure** — เรียงตามการเรียนรู้ ไม่ใช่ตามโฟลเดอร์
+- **target_reader ต้องเลือกจาก Reader Persona (§6)** — ห้ามใช้ "ทั่วไป"
+- **final_learning_outcome ต้องวัดได้** — ไม่ใช่ "เข้าใจระบบ" แต่ "สร้าง X ได้"
 
-| ความสามารถ | รายละเอียด |
-|-----------|-----------|
-| **Code Reading Pipeline** | 7 ขั้น — ห้ามข้าม, ห้ามเขียน arch จาก README อย่างเดียว |
-| **Evidence Strength** | `[✓]` Direct, `[→]` Inferred, `[?]` Assumed, `[!]` Unverified |
-| **6 Chapter Types** | Concept, Architecture, Code Reading, Implementation, Comparison, Exercise |
-| **Pass Levels** | Quick Note → Standard → Full Textbook |
-| **Checkpoint Gates** | 6 gates — ตรวจก่อน publish |
+---
 
-## ข้อจำกัด
+## 2. Knowledge Density Rule (5 ชั้น — ทุกหัวข้อต้องมี)
 
-- ต้องให้ AI อ่าน repo จริงก่อน (ใช้ webfetch/clone)
-- ไม่เหมาะกับ repo ที่ไม่มี README หรือ documentation เลย
-- ภาษาไทยเท่านั้น — ไม่รองรับภาษาอื่น
+ทุกหัวข้อสำคัญในแต่ละบทต้องมีความรู้ 5 ชั้น:
 
-## โครงสร้าง
+| ชั้น | ชื่อ | คำถามที่ตอบ | ถ้าขาด = อะไร |
+|------|------|-----------|-------------|
+| **1** | Concept | แนวคิดคืออะไร? | อ่านไม่รู้เรื่อง |
+| **2** | Mechanism | มันทำงานอย่างไร? | รู้แต่ชื่อ ไม่รู้หลักการ |
+| **3** | Source Evidence | repo ใช้ตรงไหน? `[✓]` | เหมือนอ่าน textbook ทั่วไป |
+| **4** | Design Reason | ทำไมเขาเลือกแบบนี้? | จำได้ แต่ประยุกต์ไม่เป็น |
+| **5** | Transfer Skill | เอาไปใช้กับโปรเจกต์ตัวเองยังไง? | เรียนแล้วใช้ไม่เป็น |
+
+### Density Check (ต่อบท)
 
 ```
-opensource-textbook/
-├── SKILL.md           ← contract สำหรับ AI
-├── README.md          ← คู่มือมนุษย์ (ไฟล์นี้)
-├── templates/         ← 6 templates บทเรียน
-└── checklists/        ← 3 checklists ตรวจคุณภาพ
+สำหรับแต่ละหัวข้อ H ในบท:
+  ✅ มี 5 ชั้น → ตำรา
+  ⚠️ มีแค่ 1-2 + 3 → เอกสารอ่านโค้ด
+  ❌ มีแค่ 1-2 → README summary
+
+ก่อนส่งบท: random เลือก 3 หัวข้อ → ตรวจว่ามีครบ 5 ชั้น
+ถ้าหัวข้อไหนไม่ครบ → เพิ่มชั้นที่ขาด หรือทำเครื่องหมาย [→] ว่ายังไม่มีหลักฐาน
 ```
 
-## License
+---
 
-MIT — ใช้ได้อิสระ
+## 3. Concept Dependency Graph (โครงตำรา ≠ โครง repo)
+
+**กฎเหล็ก:** AI ต้องแปลงจาก repo structure → learning structure
+
+```
+Repo Structure (โครงระบบ):          Learning Structure (โครงตำรา):
+├── packages/                        ├── บท 1: แนวคิดพื้นฐาน
+│   ├── core/                        ├── บท 2: ระบบทำงานอย่างไร
+│   ├── api/                         │   ├── 2.1 ส่วนที่ต้องรู้ก่อน
+│   └── plugins/                     │   ├── 2.2 ส่วนที่ต่อจาก 2.1
+│                                    │   └── 2.3 ส่วนที่ใช้ 2.1+2.2
+                                     ├── บท 3: ลงมือสร้าง
+                                     └── บท 4: วิเคราะห์เปรียบเทียบ
+```
+
+### วิธีการสร้าง Dependency Graph
+
+```
+1. ลิสต์ทุกแนวคิดสำคัญจาก repo
+2. สำหรับแต่ละแนวคิด A → ถาม: "ต้องรู้ B ก่อนถึงจะเข้าใจ A ไหม?"
+3. ถ้าใช่ → B ต้องมาก่อน A ใน chapter_order
+4. วาดเป็นกราฟ:
+   CLI Entry → Config → Session → Provider → Tool → Agent → Plugin
+5. จัดกลุ่มเป็นบท: แต่ละบท = กลุ่มแนวคิดที่ depend กัน
+6. เรียงบทตาม dependency: สิ่งที่ไม่มี prerequisite → ก่อน
+```
+
+### Validation
+
+```
+□ ทุกบท i: concept ในบท i ไม่ depend on concept ในบท i+1 (หรือหลังกว่า)
+□ บทแรกสอนสิ่งที่ไม่มี prerequisite
+□ บทสุดท้ายใช้ทุกอย่างที่เรียนมา
+□ กราฟไม่มี cycle (A→B→A)
+```
+
+---
+
+## 4. Glossary / Pattern / Cheatsheet Outputs
+
+นอกจากบทเรียน ต้องสร้างไฟล์เสริม:
+
+### 4.1 `glossary.md`
+```
+ทุก chapter → เก็บคำศัพท์ที่ปรากฏครั้งแรก + อธิบายแบบคนไทยเข้าใจ
+
+รูปแบบ:
+### <คำศัพท์>
+- **ความหมาย:** (อธิบายด้วยภาษาไทยง่ายๆ)
+- **ปรากฏใน:** [[บทที่ X]]
+- **ไฟล์ใน repo:** `path/to/file`
+```
+
+### 4.2 `patterns.md`
+```
+รวบรวม design patterns / architecture techniques จาก repo
+
+รูปแบบ:
+### <ชื่อ Pattern>
+- **คืออะไร:** (1-2 บรรทัด)
+- **ใช้ที่ไหนใน repo:** `path/to/file` → `function()`
+- **ทำไมถึงใช้:** (เหตุผล)
+- **เมื่อไหร่ควรใช้เอง:** (transfer)
+- **บทที่สอน:** [[บทที่ X]]
+```
+
+### 4.3 `anti-patterns.md`
+```
+สิ่งที่ repo หลีกเลี่ยง หรือจุดที่ไม่ควรทำตาม
+
+รูปแบบ:
+### <ชื่อ Anti-Pattern>
+- **คืออะไร:** (1-2 บรรทัด)
+- **พบที่ไหน:** (ถ้ามี)
+- **ทำไมไม่ควรทำ:** (เหตุผล)
+- **ควรทำอะไรแทน:**
+```
+
+### 4.4 `cheatsheet.md`
+```
+ตารางตัดสินใจ / สรุปเร็ว — สำหรับคนอ่านจบแล้วกลับมาทบทวน
+
+รูปแบบ:
+| สถานการณ์ | ใช้แนวคิดอะไร | ดูบท |
+|-----------|-------------|------|
+| อยากทำ X | ใช้ Y | [[บทที่ Z]] |
+```
+
+### 4.5 `source-map.md`
+```
+แนวคิด ↔ ไฟล์จริง ↔ บทที่เกี่ยวข้อง
+
+รูปแบบ:
+| แนวคิด | ไฟล์ใน repo | บทที่สอน | ชั้น Knowledge |
+|--------|-----------|---------|---------------|
+| Session | packages/core/session/ | บท 3 | 1-5 |
+```
+
+---
+
+## 5. Evaluation Rubric (ตรวจตัวเองก่อนส่ง)
+
+ทุกบทต้อง self-score — **คะแนน < 85 ห้ามส่ง final**
+
+### Textbook Rubric /100
+
+| หมวด | คะแนน | ตรวจอะไร |
+|------|--------|---------|
+| **Accuracy** | 25 | ข้อมูลถูกต้อง `[✓]`, ไม่มี hallucination |
+| **Source Traceability** | 20 | ทุก claim มี source, `[✓]` > 10 จุด |
+| **Teaching Clarity** | 15 | อ่านแล้วเข้าใจ, ไม่ใช่ข้อมูลกอง |
+| **Knowledge Density** | 15 | 5 ชั้นครบทุกหัวข้อหลัก |
+| **Practical Transfer** | 15 | บอกได้ว่าเอาไปใช้กับโปรเจกต์ตัวเองยังไง |
+| **Exercises Quality** | 10 | แบบฝึกหัด 3-5 ข้อ, มีเฉลย, ระดับต่างกัน |
+
+### Scoring Process
+
+```
+1. เขียนบทเสร็จ
+2. AI ตรวจตัวเอง:
+   - Accuracy: ตรวจทุก claim → มี source ไหม?
+   - Source Traceability: นับ `[✓]` → ต้อง ≥ 10
+   - Teaching Clarity: อ่านซ้ำ → คนที่ไม่รู้มาก่อนเข้าใจไหม?
+   - Knowledge Density: random 3 หัวข้อ → มีครบ 5 ชั้นไหม?
+   - Practical Transfer: มี "เอาไปใช้ยังไง" ทุกหัวข้อหลัก?
+   - Exercises: 3-5 ข้อ, มีทบทวน+วิเคราะห์+ลงมือทำ?
+
+3. คำนวณคะแนนรวม
+4. ถ้า < 85 → แก้ไข (revise) → ตรวจใหม่
+5. ถ้า ≥ 85 → ส่ง final
+```
+
+### Quick Self-Check (ก่อน scoring จริง)
+
+```
+□ มี `[✓]` อย่างน้อย 10 จุด
+□ ไม่มี `[!]` ในข้อความสำคัญ
+□ 5 ชั้นครบทุกหัวข้อหลัก
+□ Architecture diagram โยงถึงไฟล์ได้
+□ แบบฝึกหัดมีเฉลย
+□ มี "จุดที่มือใหม่มักเข้าใจผิด"
+□ ภาษาไทยทั้งหมด (ยกเว้นชื่อ, code, URL)
+```
+
+---
+
+## 6. Reader Persona (เลือกระดับก่อนเขียน)
+
+| Persona | ระดับ | น้ำหนักการเขียน |
+|---------|-------|---------------|
+| **Beginner** | เพิ่งเริ่มเขียนโค้ด | เน้น concept + mechanism, อธิบายทุกอย่าง, มี example เยอะ |
+| **Junior Dev** | เขียนโค้ดเป็น แต่ไม่รู้ architecture | เน้น mechanism + design reason, มี code walkthrough |
+| **Intermediate** | รู้ architecture พื้นฐาน | เน้น design reason + tradeoff, มี comparison |
+| **System Designer** | ออกแบบระบบเป็น | เน้น transfer + boundary + extension |
+| **Maintainer** | จะ contribute repo นี้ | เน้น source evidence + code walkthrough + test |
+
+**Rule:** 1 บท = 1 Persona — ถ้าจะเขียนให้หลายระดับ → แยกบท
+
+---
+
+## Code Reading Pipeline (7 ขั้น)
+
+1. README.md → เป้าหมายโปรเจกต์
+2. package/config → stack, dependencies
+3. entrypoint → จุดเริ่มระบบ
+4. core modules → แกนหลัก
+5. adapters/integrations → การเชื่อมต่อภายนอก
+6. tests/examples → intended usage
+7. docs/issues/releases → บริบทและข้อจำกัด
+
+⚠️ **ห้ามเขียน Architecture Chapter จาก README อย่างเดียว** — README คือขั้นที่ 1 จาก 7
+
+---
+
+## Chapter Types (6 แบบ)
+
+| Type | ใช้เมื่อ |
+|------|--------|
+| 🧠 **Concept** | สอนแนวคิดหลัก |
+| 🏗️ **Architecture** | สอนภาพรวมระบบ |
+| 🔬 **Code Reading** | พาเดินอ่านไฟล์จริง |
+| 🔨 **Implementation** | สร้าง mini version |
+| ⚖️ **Comparison** | เทียบ design choice |
+| ❓ **Exercise** | ทดสอบความเข้าใจ |
+
+---
+
+## Pass Levels
+
+| Level | Sections | ใช้เมื่อ |
+|-------|----------|---------|
+| **Quick Note** | 1-3 | repo เล็ก, preview |
+| **Standard Lesson** | 5-8 | concept/module เดียว |
+| **Full Textbook** | 10-15 | repo ใหญ่, foundation |
+
+---
+
+## Evidence Strength
+
+| เครื่องหมาย | ระดับ | ใช้เมื่อ |
+|-----------|------|---------|
+| `[✓]` | Direct | ยืนยันจาก repo/docs โดยตรง |
+| `[→]` | Inferred | อนุมานจากหลักฐาน |
+| `[?]` | Assumed | ตั้งสมมติฐาน |
+| `[!]` | Unverified | ยังไม่มีหลักฐาน |
+
+---
+
+## Self-Score Rubric Quick Reference
+
+```
+□ Accuracy:          /25  (ทุก claim มี source?)
+□ Source Traceability: /20  ([✓] ≥ 10 จุด?)
+□ Teaching Clarity:   /15  (มือใหม่อ่านรู้เรื่อง?)
+□ Knowledge Density:  /15  (5 ชั้นครบ?)
+□ Practical Transfer: /15  (เอาไปใช้ได้?)
+□ Exercises Quality:  /10  (3-5 ข้อ, มีเฉลย?)
+
+Total: __/100  →  □ ≥ 85 ส่ง  □ < 85 revise
+```
+
+---
+
+## Output Files Checklist
+
+ก่อนจบโปรเจค ตรวจสอบว่ามีไฟล์เหล่านี้ตามความเหมาะสม:
+
+```
+□ book-plan.md          # แผนทั้งเล่ม (required)
+□ chapter-*.md          # บทเรียน (required)
+□ glossary.md           # คำศัพท์ (recommended)
+□ patterns.md           # design patterns (recommended)
+□ anti-patterns.md      # สิ่งที่ไม่ควรทำ (optional)
+□ cheatsheet.md         # ตารางสรุปเร็ว (optional)
+□ source-map.md         # แนวคิด↔ไฟล์↔บท (optional)
+```
+
+---
+
+## Templates
+
+- `templates/concept-chapter.md`
+- `templates/architecture-chapter.md`
+- `templates/code-reading-chapter.md`
+- `templates/implementation-chapter.md`
+- `templates/comparison-chapter.md`
+- `templates/exercise-chapter.md`
+- `templates/book-plan.md`
+
+## Checklists
+
+- `checklists/repo-inspection.md`
+- `checklists/evidence-check.md`
+- `checklists/textbook-quality.md`
+- `checklists/evaluation-rubric.md`
