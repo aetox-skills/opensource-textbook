@@ -13,6 +13,16 @@
 ## 1. เป้าหมายบทเรียน
 (ผู้เรียนจะเข้าใจภาพรวมของระบบ)
 
+## 0. Source Snapshot
+| Field | Value |
+|-------|-------|
+| Repository | owner/repo |
+| Branch | main |
+| Commit SHA | abc1234 |
+| Inspected | YYYY-MM-DD |
+| Method | webfetch / git clone |
+| License | MIT |
+
 ## 2. ภาพรวมระบบ
 ```
 (Architecture Diagram ใหญ่ — ทุก component มี [✓] [→] [?] [!])

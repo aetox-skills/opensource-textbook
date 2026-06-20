@@ -4,11 +4,11 @@
 
 ---
 
-| แนวคิด | บทที่สอน | Source File | Function/Class | Evidence |
-|--------|---------|-------------|---------------|----------|
-| Session Management | [[บทที่ 3]] | `src/session.ts` | `createSession()` | `[✓]` |
-| Provider Abstraction | [[บทที่ 5]] | `src/provider/index.ts` | `Provider` interface | `[✓]` |
-| Agent Loop | [[บทที่ 7]] | `src/agent/loop.ts` | `runLoop()` | `[→]` |
+| แนวคิด | บทที่สอน | Source File | Lines | Function/Class | Evidence | Commit |
+|--------|---------|-------------|-------|---------------|----------|--------|
+| Session Management | [[บทที่ 3]] | `src/session.ts` | L10-L45 | `createSession()` | `[✓]` | abc123 |
+| Provider Abstraction | [[บทที่ 5]] | `src/provider/index.ts` | L1-L30 | `Provider` interface | `[✓]` | abc123 |
+| Agent Loop | [[บทที่ 7]] | `src/agent/loop.ts` | L50-L80 | `runLoop()` | `[→]` | abc123 |
 | ... | ... | ... | ... | ... |
 
 ---

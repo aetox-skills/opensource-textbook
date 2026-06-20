@@ -13,6 +13,13 @@
 ## 1. เป้าหมาย
 "เราจะสร้าง `<X>` แบบง่าย — โดยใช้แนวคิดจาก `<repo>`"
 
+## 0. Source Snapshot
+| Field | Value |
+|-------|-------|
+| Repository | owner/repo |
+| Commit SHA | abc1234 |
+| Inspected | 2026-06-20 |
+
 ## 2. แนวคิดจาก Repo ตัวจริง
 ```
 (Core idea — diagram)
