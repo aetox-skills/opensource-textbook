@@ -86,7 +86,9 @@ description: >
 | วางแผนการสอน + 8-layer density + comparison | [`references/pedagogy.md`](references/pedagogy.md) |
 | เขียน Citation + Source Snapshot | [`references/citation-format.md`](references/citation-format.md) |
 | เขียนภาษาไทยให้เป็นธรรมชาติ | [`references/thai-writing.md`](references/thai-writing.md) |
-| Self-score + Evaluation Rubric | [`checklists/evaluation-rubric.md`](checklists/evaluation-rubric.md) |
+| Self-score + Evaluation Rubric + Scoring Anchors | [`checklists/evaluation-rubric.md`](checklists/evaluation-rubric.md) + [`references/scoring-anchors.md`](references/scoring-anchors.md) |
+| Second-pass review (ลด self-score bias) | [`references/scoring-anchors.md#second-pass-review-protocol`](references/scoring-anchors.md#second-pass-review-protocol) |
+| Platform compatibility | [`references/compatibility.md`](references/compatibility.md) |
 | ตรวจ evidence ก่อน publish | [`checklists/evidence-check.md`](checklists/evidence-check.md) |
 | Pipeline inspection 7 ขั้น | [`checklists/repo-inspection.md`](checklists/repo-inspection.md) |
 | คุณภาพบทเรียน 9 ส่วน | [`checklists/textbook-quality.md`](checklists/textbook-quality.md) |
