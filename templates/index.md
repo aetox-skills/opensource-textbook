@@ -1,7 +1,12 @@
 # <Project Name> Textbook
 
-> **Generated:** YYYY-MM-DD | **Skill:** opensource-textbook v6
+> **Generated:** YYYY-MM-DD | **Skill:** opensource-textbook v7
 > **Repository:** owner/repo | **License:** MIT
+
+> 🧭 **สำหรับ AI:** หน้านี้คือ "ประตูเข้า" — คนอ่านจะตัดสินใจใน 10 วิว่าจะอ่านต่อหรือไม่
+> - บรรทัดแรกต้องตอบ: "อ่านเล่มนี้แล้วได้อะไรที่ Google ไม่ได้?"
+> - บอกว่าเหมาะกับใคร — ชัดเจน, ไม่ใช่ "ทุกคน"
+> - prerequisite ต้อง honest — ถ้าต้องรู้ Rust มาก่อน ก็บอกไป
 
 ---
 

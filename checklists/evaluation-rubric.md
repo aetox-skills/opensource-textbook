@@ -23,8 +23,9 @@
 - [ ] มี "ทำไม" ไม่ใช่แค่ "อะไร" (5)
 
 ### Knowledge Density (15 คะแนน)
-- [ ] random 3 หัวข้อ → ครบ 5 ชั้น (Concept+Mechanism+Evidence+Reason+Transfer) (10)
-- [ ] Transfer Skill ใช้ได้จริง ไม่ใช่ vague (5)
+- [ ] random 3 หัวข้อ → ครบชั้นตาม Pass Level (Quick:1-4, Standard:1-6, Full:1-8) (10)
+- [ ] Common Pitfall (ชั้น 8) ครอบคลุมอย่างน้อย 2 จุด (สำหรับ Full Textbook) (2)
+- [ ] Code Walkthrough (ชั้น 4) มีตัวอย่างโค้ดจริงทุกหัวข้อหลัก (3)
 
 ### Practical Transfer (15 คะแนน)
 - [ ] บอกได้ว่าเอาไปใช้กับโปรเจกต์ตัวเองยังไง (5)
@@ -64,6 +65,6 @@ Total:               ___/100
 | Accuracy | ดึงข้อมูลใหม่จาก GitHub |
 | Source | เพิ่ม `[✓]` labels |
 | Clarity | rewrite section ที่ซับซ้อน |
-| Density | เพิ่มชั้นที่ขาด (5 layers) |
+| Density | เพิ่มชั้นที่ขาด (8 layers tiered by pass level) |
 | Transfer | เพิ่ม "เอาไปใช้ยังไง" |
 | Exercises | เพิ่มข้อ + เฉลยละเอียด |

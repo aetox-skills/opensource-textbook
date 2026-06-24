@@ -1,5 +1,12 @@
 # 📋 Book Plan Template
 
+> 🧭 **Guiding Questions** — ก่อนวางแผนทั้งเล่ม ให้ถามตัวเอง:
+> 1. ถ้าผู้อ่านมีเวลาแค่ 2 ชม. — ควรอ่านบทไหน? (prioritize chapters)
+> 2. มีแนวคิดไหนที่คนมักเข้าใจผิดตั้งแต่แรก? — ต้องแก้ความเข้าใจผิดในบทแรกๆ
+> 3. ถ้าเปลี่ยนลำดับบท — ผู้อ่านจะหลงตรงไหน? (validate dependency graph)
+> 4. ทักษะที่คนเรียนจบจะได้ — มีกี่คนที่เอาไปใช้จริง? (realistic transfer)
+> 5. มีบทไหนที่ "น่าจะมี" แต่ "ไม่จำเป็น" — ตัดออกตาม Artifact Budget
+
 ## Target Reader
 (Pick one from Reader Persona: Beginner / Junior Dev / Intermediate / System Designer / Maintainer)
 

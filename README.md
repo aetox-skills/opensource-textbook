@@ -1,4 +1,4 @@
-# Repo-to-Textbook Skill (v6)
+# Repo-to-Textbook Skill (v7)
 
 > สกิลสำหรับแปลง Open Source repository → ตำราเรียนภาษาไทย
 
@@ -41,27 +41,24 @@
 
 ```
 opensource-textbook/
-├── SKILL.md              ← contract สำหรับ AI (15 rules, 6 gates, 6 evidence labels)
+├── SKILL.md              ← contract สำหรับ AI (15 rules, 8-layer density, comparison framework, deep terminology)
 ├── README.md             ← คู่มือมนุษย์ (ไฟล์นี้)
-├── templates/            ← 8 templates บทเรียน (concept, architecture, code-reading, implementation, comparison, exercise, book-plan, index)
-├── templates/glossary.md
-├── templates/source-map.md
-├── templates/capstone-project.md
+├── templates/            ← 11 templates บทเรียน (concept, architecture, code-reading, implementation, comparison, exercise, book-plan, index, glossary, source-map, capstone)
 └── checklists/           ← 4 checklists (repo-inspection, evidence-check, textbook-quality, evaluation-rubric)
 ```
 
 ## Current Files
 
-- `SKILL.md` — 15 Operating Rules, Knowledge Sources, Book-Level Planning, Knowledge Density, Dependency Graph, Rubric, Report
+- `SKILL.md` — 15 Operating Rules, Knowledge Sources, Book-Level Planning, 8-Level Knowledge Density (tiered), Architecture Comparison Framework, Deep Terminology Protocol, Rubric, Report
 - `templates/book-plan.md` — แผนทั้งเล่ม
-- `templates/index.md` — หน้าประตูเข้าหนังสือ (🆕 v6)
+- `templates/index.md` — หน้าประตูเข้าหนังสือ
 - `templates/concept-chapter.md` — สอนแนวคิด
-- `templates/architecture-chapter.md` — สอนภาพรวมระบบ
-- `templates/code-reading-chapter.md` — พาอ่านไฟล์จริง
+- `templates/architecture-chapter.md` — สอนภาพรวมระบบ + Architecture Comparison tables
+- `templates/code-reading-chapter.md` — พาอ่านไฟล์จริง (🆕 Code Walkthrough layer)
 - `templates/implementation-chapter.md` — สร้าง mini version
 - `templates/comparison-chapter.md` — เทียบ design choice
 - `templates/exercise-chapter.md` — แบบฝึกหัด
-- `templates/glossary.md` — คำศัพท์
+- `templates/glossary.md` — คำศัพท์ (Standard + Deep format)
 - `templates/source-map.md` — แนวคิด↔ไฟล์↔บท
 - `templates/capstone-project.md` — โปรเจคจบเล่ม
 - `checklists/repo-inspection.md` — 7 ขั้น Code Reading Pipeline
@@ -78,7 +75,9 @@ opensource-textbook/
 | **Knowledge Sources** | Repo, Model Knowledge, Web — architecture=repo only |
 | **Code Reading Pipeline** | 7 ขั้น — ห้ามข้าม, ห้ามเขียน arch จาก README |
 | **Book-Level Planning** | `book-plan.md` — target reader, chapter order, dependency graph |
-| **Knowledge Density** | 5 ชั้น — Concept, Mechanism, Evidence, Reason, Transfer |
+| **8-Level Knowledge Density** | Overview→Concept→Mechanism→Code Walkthrough→Evidence→Design Reason→Transfer→Pitfall — tiered by pass level |
+| **Architecture Comparison Framework** | ทุก component หลักเทียบกับทางเลือก — Performance/Complexity/Maintainability/Ecosystem fit |
+| **Deep Terminology Protocol** | core terms 4 ชั้น: คำจำกัดความ→กลไก→ความสำคัญ→ตัวอย่าง `[✓]` |
 | **7 Chapter Types** | Concept, Architecture, Code Reading, Implementation, Comparison, Exercise, Book Planning |
 | **Pass Levels** | Quick Note / Standard / Full + Artifact Budget |
 | **Evaluation Rubric** | /100 — < 85 revise |
