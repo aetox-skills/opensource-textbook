@@ -23,11 +23,29 @@
 
 ```json
 {
-  "skills": {
-    "urls": ["https://github.com/aetox-skills/opensource-textbook"]
-  }
+  "skills": [
+    "https://github.com/aetox-skills/opensource-textbook"
+  ]
 }
 ```
+
+หรือวางในโฟลเดอร์ skills โดยตรง:
+
+```
+.opencode/skills/opensource-textbook/SKILL.md
+.claude/skills/opensource-textbook/SKILL.md
+.agents/skills/opensource-textbook/SKILL.md
+```
+
+## แนะนำโมเดลที่ควรใช้
+
+| Pass Level | โมเดลขั้นต่ำ | แนะนำ |
+|-----------|-------------|-------|
+| **Quick Note** | GPT-4o, Claude 3.5 Sonnet, DeepSeek V3 | — |
+| **Standard Lesson** | Claude 3.5 Sonnet, DeepSeek R1/V4 | GPT-4o ขึ้นไป |
+| **Full Textbook** | Claude Opus 4+, GPT-5+, DeepSeek V4 Pro | Opus 4.5+ หรือ GPT 5.5 Pro |
+
+> 💡 Skill นี้ถูกออกแบบให้ **Full Textbook** ต้องใช้โมเดลที่ reasoning แข็งพอจะทำ 15 rules + 8 layers + comparison + deep terminology ได้ใน pass เดียว — ถ้าใช้โมเดลต่ำกว่านี้ อาจต้อง split เป็นหลาย pass
 
 ## ตัวอย่าง Prompt
 
