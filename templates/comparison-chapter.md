@@ -20,6 +20,15 @@
 ## 1. เป้าหมาย
 "เราจะเทียบ `<A>` กับ `<B>` เพื่อเข้าใจว่าเมื่อไหร่ควรใช้ตัวไหน"
 
+## 0. Source Snapshot
+| Field | Value |
+|-------|-------|
+| Repository | owner/repo |
+| Branch | main |
+| Commit SHA | abc1234 |
+| Inspected | YYYY-MM-DD |
+| Method | webfetch / git clone |
+
 ## 2. เกณฑ์การเปรียบเทียบ
 | เกณฑ์ | ทำไมสำคัญ |
 |-------|----------|

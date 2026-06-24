@@ -19,6 +19,15 @@
 ## 1. สรุปแนวคิดสำคัญ
 (ทบทวนสั้นๆ — 5-10 บรรทัด)
 
+## 0. Source Snapshot
+| Field | Value |
+|-------|-------|
+| Repository | owner/repo |
+| Branch | main |
+| Commit SHA | abc1234 |
+| Inspected | YYYY-MM-DD |
+| Method | webfetch / git clone |
+
 ## 2. แบบฝึกหัด
 
 ### ข้อ 1: ทบทวนความเข้าใจ (⭐)

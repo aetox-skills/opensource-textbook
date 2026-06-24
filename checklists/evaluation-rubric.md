@@ -12,7 +12,7 @@
 - [ ] version ตรงกับที่ดึงจาก GitHub (5)
 
 ### Source Traceability (20 คะแนน)
-- [ ] `[✓]` ≥ 10 จุดในบท (5)
+- [ ] `[✓]` ≥ ตาม Pass Level (Quick:3, Standard:7, Full:10) (5)
 - [ ] architecture diagram ทุก component มี source (5)
 - [ ] claims สำคัญทั้งหมดมี `[✓]` หรือ `[→]` (5)
 - [ ] ไม่มี `[!]` ในข้อความสำคัญ (5)
@@ -27,16 +27,22 @@
 - [ ] Common Pitfall (ชั้น 8) ครอบคลุมอย่างน้อย 2 จุด (สำหรับ Full Textbook) (2)
 - [ ] Code Walkthrough (ชั้น 4) มีตัวอย่างโค้ดจริงทุกหัวข้อหลัก (3)
 
-### Practical Transfer (15 คะแนน)
-- [ ] บอกได้ว่าเอาไปใช้กับโปรเจกต์ตัวเองยังไง (5)
-- [ ] มีตัวอย่างการใช้งานจริง (5)
-- [ ] มี section "ถ้าจะทดลองเอง เริ่มจากตรงไหน" (5)
+### Practical Transfer (10 คะแนน)
+- [ ] บอกได้ว่าเอาไปใช้กับโปรเจกต์ตัวเองยังไง (4)
+- [ ] มีตัวอย่างการใช้งานจริง (3)
+- [ ] มี section "ถ้าจะทดลองเอง เริ่มจากตรงไหน" (3)
 
-### Exercises Quality (10 คะแนน)
+### Exercise Quality (10 คะแนน)
 - [ ] 3-5 ข้อ (2)
 - [ ] มีทบทวน (⭐) + วิเคราะห์ (⭐⭐) + ลงมือทำ (⭐⭐⭐) (3)
 - [ ] มีเฉลยทุกข้อ (3)
 - [ ] เฉลยอธิบาย "ทำไม" ไม่ใช่แค่ "คำตอบคือ..." (2)
+
+### Thai Readability (5 คะแนน)
+- [ ] ภาษาไทยธรรมชาติ — อ่านแล้วไม่รู้สึกว่าแปลมา (2)
+- [ ] คำทับศัพท์มีคำไทยกำกับในครั้งแรกที่ใช้ (1)
+- [ ] ประโยคสั้น — ไม่มีประโยคยาวเกิน 2 บรรทัด (1)
+- [ ] มีอุปมา (analogy) อย่างน้อย 1 จุด (1)
 
 ---
 
@@ -47,8 +53,9 @@ Accuracy:            ___/25
 Source Traceability: ___/20
 Teaching Clarity:    ___/15
 Knowledge Density:   ___/15
-Practical Transfer:  ___/15
-Exercises Quality:   ___/10
+Practical Transfer:  ___/10
+Exercise Quality:    ___/10
+Thai Readability:    ___/5
 ─────────────────────────
 Total:               ___/100
 
@@ -63,8 +70,9 @@ Total:               ___/100
 | คะแนนต่ำสุด | แก้ที่ |
 |------------|--------|
 | Accuracy | ดึงข้อมูลใหม่จาก GitHub |
-| Source | เพิ่ม `[✓]` labels |
+| Source | เพิ่ม `[✓]` labels (ดู Per-Pass minimum) |
 | Clarity | rewrite section ที่ซับซ้อน |
 | Density | เพิ่มชั้นที่ขาด (8 layers tiered by pass level) |
 | Transfer | เพิ่ม "เอาไปใช้ยังไง" |
 | Exercises | เพิ่มข้อ + เฉลยละเอียด |
+| Thai | อ่านทวน + ใช้อุปมา + ตัดประโยคยาว (ดู Thai Readability Guide) |

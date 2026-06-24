@@ -20,6 +20,15 @@
 ## 1. เป้าหมายบทเรียน
 "เรากำลังจะอ่านไฟล์ `<path>` เพื่อเข้าใจ `<what>`"
 
+## 0. Source Snapshot
+| Field | Value |
+|-------|-------|
+| Repository | owner/repo |
+| Branch | main |
+| Commit SHA | abc1234 |
+| Inspected | YYYY-MM-DD |
+| Method | webfetch / git clone |
+
 ## 2. ภาพรวมของไฟล์ — มันอยู่ในระบบตรงไหน
 ```
 (System diagram — ชี้ว่าไฟล์นี้อยู่ตรงไหน)
