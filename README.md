@@ -109,6 +109,16 @@ opensource-textbook/
 - ต้องให้ AI อ่าน repo จริงก่อน (ผ่าน Code Reading Pipeline 7 ขั้น)
 - ภาษาไทยเท่านั้น
 
+## การตรวจสอบผลลัพธ์
+
+ใช้ `scripts/validate-output.js` ตรวจ output แบบ deterministic — เช็ค Source Snapshot, evidence counts, citations, required sections, และ self-score:
+
+```bash
+node scripts/validate-output.js ./my-textbook-output --pass full
+```
+
+Pass levels: `quick`, `standard`, `full` — แต่ละ level มี min evidence ต่างกัน
+
 ## License
 
 MIT — ใช้ได้อิสระ

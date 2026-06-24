@@ -24,7 +24,9 @@
 | Field | Value |
 |-------|-------|
 | Repository | owner/repo |
+| Branch | main |
 | Commit SHA | abc1234 |
+| Inspected | YYYY-MM-DD |
 | Inspected | YYYY-MM-DD |
 
 ## 2. แนวคิดคืออะไร

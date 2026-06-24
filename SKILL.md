@@ -698,3 +698,13 @@ Total:                    ___/100
 - `checklists/evidence-check.md`
 - `checklists/textbook-quality.md`
 - `checklists/evaluation-rubric.md`
+
+## Validator
+
+รัน `scripts/validate-output.js` เพื่อตรวจ output แบบ deterministic — ใช้ก่อนส่ง final หรือใช้เป็น CI gate:
+
+```bash
+node scripts/validate-output.js <output-dir> --pass <quick|standard|full>
+```
+
+ตรวจ: Source Snapshot ครบทุกไฟล์, `[✓]` ≥ pass minimum, citation format, required sections, self-score totals

@@ -24,7 +24,9 @@
 | Field | Value |
 |-------|-------|
 | Repository | owner/repo |
+| Branch | main |
 | Commit SHA | abc1234 |
+| Inspected | 2026-06-20 |
 | Inspected | 2026-06-20 |
 
 ## 2. แนวคิดจาก Repo ตัวจริง
