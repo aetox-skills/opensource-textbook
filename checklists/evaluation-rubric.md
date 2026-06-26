@@ -55,7 +55,7 @@
 
 ## Total Score
 
-```
+```text
 Accuracy:            ___/25
 Source Traceability: ___/20
 Teaching Clarity:    ___/15
